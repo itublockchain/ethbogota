@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import { useConnect } from 'hooks/useConnect';
 import { useMetamaskContext } from 'context';
-import { getThemePreference } from '../utils';
-import LOGO from '../assets/metablast.png';
-import { HeaderButtons } from './Buttons';
+import { useDispatch } from 'react-redux';
+import { setPage } from 'store/slicers/page';
+import { getThemePreference } from 'utils';
+import { useTheme } from 'hooks';
+import LOGO from 'assets/metablast.png';
+import { useIsConnected } from 'context/metamask/MetamaskContextHooks';
+import { ConnectedButton, HeaderButtons } from './Buttons';
 import { Toggle } from './Toggle';
 
 const HeaderWrapper = styled.header`
@@ -27,23 +31,45 @@ const LogoDiv = styled.img`
   width: 140px;
 `;
 
-export const Header = ({
-  handleToggleClick,
-}: {
-  handleToggleClick(): void;
-}) => {
+const LinksDiv = styled.div`
+  display: flex;
+`;
+
+const Link = styled.div`
+  display: flex;
+  cursor: pointer;
+
+  &:hover {
+    color: ${(props) => props.theme.colors.text.alternative};
+  }
+`;
+
+export const Header = () => {
   const [state] = useMetamaskContext();
   const { connect } = useConnect();
+  const dispatch = useDispatch();
+  const { toggleTheme } = useTheme();
+  const isConnected = useIsConnected();
 
   return (
     <HeaderWrapper>
       <LogoDiv src={LOGO} />
+      <LinksDiv>
+        <Link onClick={() => dispatch(setPage('snapshot'))}>Snapshot</Link>
+        <Link
+          onClick={() => dispatch(setPage('bridge'))}
+          style={{ marginLeft: '2rem' }}
+        >
+          Bridge
+        </Link>
+      </LinksDiv>
       <RightContainer>
-        <Toggle
-          onToggle={handleToggleClick}
-          defaultChecked={getThemePreference()}
-        />
-        <HeaderButtons state={state} onConnectClick={connect} />
+        <Toggle onToggle={toggleTheme} defaultChecked={getThemePreference()} />
+        {isConnected ? (
+          <ConnectedButton />
+        ) : (
+          <HeaderButtons state={state} onConnectClick={connect} />
+        )}
       </RightContainer>
     </HeaderWrapper>
   );

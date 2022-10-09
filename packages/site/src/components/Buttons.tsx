@@ -1,6 +1,8 @@
 import { MetamaskState } from 'context';
+import { useAddress } from 'context/metamask/MetamaskContextHooks';
 import { ComponentProps } from 'react';
 import styled from 'styled-components';
+import { formatAddress } from 'utils/formatAddress';
 import { ReactComponent as FlaskFox } from '../assets/flask_fox.svg';
 import { shouldDisplayReconnectButton } from '../utils';
 
@@ -81,6 +83,16 @@ export const ConnectButton = (props: ComponentProps<typeof Button>) => {
     <Button {...props}>
       <FlaskFox />
       <ButtonText>Connect</ButtonText>
+    </Button>
+  );
+};
+
+export const ConnectedButton = (props: ComponentProps<typeof Button>) => {
+  const address = useAddress();
+  return (
+    <Button {...props}>
+      <FlaskFox />
+      <ButtonText>{formatAddress(address as string)}</ButtonText>
     </Button>
   );
 };

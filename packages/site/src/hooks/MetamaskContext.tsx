@@ -3,24 +3,21 @@ import {
   Dispatch,
   ReactNode,
   Reducer,
-  useContext,
   useEffect,
   useReducer,
 } from 'react';
-import { Snap } from '../../types';
-import { isFlask, getSnap } from '../../utils';
+import { Snap } from '../types';
+import { isFlask, getSnap } from '../utils';
 
 export type MetamaskState = {
   isFlask: boolean;
   installedSnap?: Snap;
   error?: Error;
-  address: string | undefined;
 };
 
 const initialState: MetamaskState = {
   isFlask: false,
   error: undefined,
-  address: undefined,
 };
 
 type MetamaskDispatch = { type: MetamaskActions; payload: any };
@@ -38,7 +35,6 @@ export enum MetamaskActions {
   SetInstalled = 'SetInstalled',
   SetFlaskDetected = 'SetFlaskDetected',
   SetError = 'SetError',
-  SetAddress = 'SetAddress',
 }
 
 const reducer: Reducer<MetamaskState, MetamaskDispatch> = (state, action) => {
@@ -59,12 +55,6 @@ const reducer: Reducer<MetamaskState, MetamaskDispatch> = (state, action) => {
       return {
         ...state,
         error: action.payload,
-      };
-
-    case MetamaskActions.SetAddress:
-      return {
-        ...state,
-        address: action.payload,
       };
 
     default:
@@ -131,8 +121,4 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </MetaMaskContext.Provider>
   );
-};
-
-export const useMetamaskContext = () => {
-  return useContext(MetaMaskContext);
 };

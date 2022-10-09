@@ -21,3 +21,22 @@ export const useSetError = () => {
     [],
   );
 };
+
+export const useSetAddress = () => {
+  const [, dispatch] = useMetamaskContext();
+  return useCallback(
+    (e: string | undefined) =>
+      dispatch({ type: MetamaskActions.SetAddress, payload: e }),
+    [],
+  );
+};
+
+export const useIsConnected = () => {
+  const [state] = useMetamaskContext();
+  return state.address != null;
+};
+
+export const useAddress = () => {
+  const [state] = useMetamaskContext();
+  return state.address;
+};

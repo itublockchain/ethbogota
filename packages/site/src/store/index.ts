@@ -1,11 +1,13 @@
 /* eslint-disable */
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import pageSlice from 'store/slicers/page';
 import proposalsSlicer from './slicers/proposals';
 
 export const store = configureStore({
   reducer: {
     proposals: proposalsSlicer,
+    page: pageSlice,
   },
   middleware: (getDefaultMiddleware) => {
     const customizedMiddleware = getDefaultMiddleware({

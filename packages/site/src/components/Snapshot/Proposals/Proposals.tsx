@@ -32,7 +32,6 @@ interface Modal {
   openIt: () => void;
 }
 const Proposals = ({ openIt }: Modal) => {
-  // const theme = useTheme();
   const dispatch = useDispatch();
 
   const getProposal = async () => {

@@ -1,4 +1,5 @@
 import {
+  useSetAddress,
   useSetError,
   useSetInstalled,
 } from 'context/metamask/MetamaskContextHooks';
@@ -11,10 +12,12 @@ interface AbstractUseConnectReturnType {
 export const useConnect = (): AbstractUseConnectReturnType => {
   const setInstalled = useSetInstalled();
   const setError = useSetError();
+  const setAddress = useSetAddress();
 
   const connect = async () => {
     try {
-      await connectSnap();
+      await connectSnap(setAddress);
+
       const installedSnap = await getSnap();
       setInstalled(installedSnap);
     } catch (e) {

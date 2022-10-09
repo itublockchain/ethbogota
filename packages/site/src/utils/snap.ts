@@ -15,10 +15,12 @@ export const getSnaps = async (): Promise<GetSnapsResponse> => {
 /**
  * Connect a snap to MetaMask.
  *
+ * @param setAddress - Address setter of connected user.
  * @param snapId - The ID of the snap.
  * @param params - The params to pass with the snap to connect.
  */
 export const connectSnap = async (
+  setAddress?: (to: string | undefined) => void,
   snapId: string = defaultSnapOrigin,
   params: Record<'version' | string, unknown> = {},
 ) => {
@@ -34,6 +36,11 @@ export const connectSnap = async (
       },
     ],
   });
+
+  const res = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  if (res != null) {
+    setAddress?.((res as any)[0]);
+  }
 };
 
 /**

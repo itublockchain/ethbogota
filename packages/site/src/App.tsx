@@ -27,7 +27,7 @@ function App() {
       <MetaMaskProvider>
         <GlobalStyle />
         <Wrapper>
-          <Header handleToggleClick={toggleTheme} />
+          <Header />
           <Home />
           <Footer />
         </Wrapper>

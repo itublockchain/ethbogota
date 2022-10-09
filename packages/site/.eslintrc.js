@@ -8,6 +8,8 @@ module.exports = {
         'jsdoc/require-jsdoc': 0,
         '@typescript-eslint/consistent-type-definitions': 'off',
         'import/extensions': 'off',
+        'no-eq-null': 'off',
+        'prefer-template': 'off',
       },
     },
   ],
