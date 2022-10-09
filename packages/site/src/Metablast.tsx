@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { FakeButton, Footer, Header, Home } from './components';
+import { Footer, Header, Home } from './components';
 import { MetaMaskProvider } from './hooks';
 
 import { light, dark, GlobalStyle } from './config/theme';
 import { setLocalStorage, getThemePreference } from './utils';
+import { SnapshotPage } from './pages';
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ function Metablast() {
         <GlobalStyle />
         <Wrapper>
           <Header handleToggleClick={toggleTheme} />
-          <FakeButton />
+          <SnapshotPage />
           <Home />
           <Footer />
         </Wrapper>
