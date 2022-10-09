@@ -5,7 +5,6 @@
 import styled from 'styled-components';
 import LOGO from '../../../assets/itublockchain-logo.jpeg';
 import { useTypedSelector } from '../../../store';
-import { useYourVote } from '../../../utils';
 const Wrapper = styled.div`
   // min-height: 200px;
   // height: 300px;
@@ -69,19 +68,17 @@ interface Modal {
 const Proposal = ({ openIt }: Modal) => {
   // const theme = useTheme();
 
-
-
   const proposal1 = useTypedSelector((state) => state.proposals.proposal1);
   return (
     <Wrapper onClick={openIt}>
       <FirstRow>
-        <div>{proposal1.author}</div>
-        <Active>{proposal1.state}</Active>
+        <div>{proposal1?.author}</div>
+        <Active>{proposal1?.state}</Active>
       </FirstRow>
-      <Title>{proposal1.title}</Title>
-      <Description>{proposal1.body}</Description>
+      <Title>{proposal1?.title}</Title>
+      <Description>{proposal1?.body}</Description>
       <Deadline>
-        {Math.floor((proposal1.end - proposal1.created) / 86400)} days left
+        {Math.floor((proposal1?.end - proposal1?.created) / 86400)} days left
       </Deadline>
     </Wrapper>
   );

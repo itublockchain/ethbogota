@@ -6,7 +6,7 @@ type ProposalsState = {
 };
 
 const initialState: ProposalsState = {
-  proposal1: [],
+  proposal1: {},
 };
 
 export const ProposalsSlicer = createSlice({

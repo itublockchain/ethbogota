@@ -35,18 +35,6 @@ export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
           },
         ],
       });
-
-    case 'vote':
-      return wallet.request({
-        method: 'snap_confirm',
-        params: [
-          {
-            prompt: getMessage(origin),
-            description: 'You use your voting',
-            textAreaContent: 'You said yes!!!',
-          },
-        ],
-      });
     default:
       throw new Error('Method not found.');
   }

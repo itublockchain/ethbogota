@@ -1,6 +1,5 @@
 /* eslint-disable */
 import styled from 'styled-components';
-import LOGO from '../../../assets/itublockchain-logo.jpeg';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { PRODUCTIONSNAPSHOT } from '../../../constant/URLs';
@@ -21,19 +20,6 @@ const Wrapper = styled.div`
   // align-items: center;
 `;
 
-const ITUBCLOGO = styled.img`
-  width: 100px;
-  border-radius: 50%;
-  height: 100px;
-  margin-top: 20px;
-`;
-
-const ITUBlockchain = styled.div`
-  font-size: 22px;
-  margin-top: 15px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text.default};
-`;
 const ProposalTitle = styled.div`
   font-size: 24px;
   margin: 15px 0px;
@@ -89,7 +75,6 @@ const Proposals = ({ openIt }: Modal) => {
         }`,
       },
     });
-    console.log(response.data.data.proposal); // data
     dispatch(setProposals(response.data.data.proposal));
   };
 

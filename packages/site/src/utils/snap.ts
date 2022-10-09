@@ -46,9 +46,18 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
   try {
     const snaps = await getSnaps();
 
-    return Object.values(snaps).find(
+    const foundSnap = Object.values(snaps).find(
       (snap) =>
         snap.id === defaultSnapOrigin && (!version || snap.version === version),
+    );
+
+    return (
+      foundSnap ?? {
+        id: defaultSnapOrigin,
+        permissionName: '',
+        initialPermissions: '' as any,
+        version: '0.0.1',
+      }
     );
   } catch (e) {
     console.log('Failed to obtain installed snap', e);
@@ -73,15 +82,3 @@ export const sendHello = async () => {
 };
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');
-
-export const useYourVote = async () => {
-  await window.ethereum.request({
-    method: 'wallet_invokeSnap',
-    params: [
-      defaultSnapOrigin,
-      {
-        method: 'vote',
-      },
-    ],
-  });
-};

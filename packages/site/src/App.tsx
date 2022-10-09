@@ -1,7 +1,7 @@
+import { MetaMaskProvider } from 'context';
 import { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Footer, Header, Home } from './components';
-import { MetaMaskProvider } from './hooks';
 
 import { light, dark, GlobalStyle } from './config/theme';
 import { setLocalStorage, getThemePreference } from './utils';

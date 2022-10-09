@@ -3,11 +3,12 @@ import {
   Dispatch,
   ReactNode,
   Reducer,
+  useContext,
   useEffect,
   useReducer,
 } from 'react';
-import { Snap } from '../types';
-import { isFlask, getSnap } from '../utils';
+import { Snap } from '../../types';
+import { isFlask, getSnap } from '../../utils';
 
 export type MetamaskState = {
   isFlask: boolean;
@@ -121,4 +122,8 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </MetaMaskContext.Provider>
   );
+};
+
+export const useMetamaskContext = () => {
+  return useContext(MetaMaskContext);
 };

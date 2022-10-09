@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { Footer, Header, Home } from './components';
-import { MetaMaskProvider } from './hooks';
-
+import { useTheme } from 'hooks/useTheme';
+import { useStyling } from 'hooks/useStyling';
+import { MetaMaskProvider } from 'context';
+import { Footer, Header } from './components';
 import { light, dark, GlobalStyle } from './config/theme';
-import { setLocalStorage, getThemePreference } from './utils';
 import { SnapshotPage } from './pages';
 
 const Wrapper = styled.div`
@@ -14,23 +13,18 @@ const Wrapper = styled.div`
   min-height: 100vh;
   max-width: 100vw;
 `;
-/* eslint-disable */
-function Metablast() {
-  const [darkTheme, setDarkTheme] = useState(getThemePreference());
 
-  const toggleTheme = () => {
-    setLocalStorage('theme', darkTheme ? 'light' : 'dark');
-    setDarkTheme(!darkTheme);
-  };
+function Metablast() {
+  const { theme, toggleTheme } = useTheme();
+  useStyling();
 
   return (
-    <ThemeProvider theme={darkTheme ? dark : light}>
+    <ThemeProvider theme={theme === 'dark' ? dark : light}>
       <MetaMaskProvider>
         <GlobalStyle />
         <Wrapper>
           <Header handleToggleClick={toggleTheme} />
           <SnapshotPage />
-          <Home />
           <Footer />
         </Wrapper>
       </MetaMaskProvider>

@@ -1,40 +1,18 @@
-/* eslint-disable */
-import { useContext } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { MetamaskActions, MetaMaskContext } from '../hooks';
-import { connectSnap, getThemePreference } from '../utils';
+import styled from 'styled-components';
+import { useConnect } from 'hooks/useConnect';
+import { useMetamaskContext } from 'context';
+import { getThemePreference } from '../utils';
+import LOGO from '../assets/metablast.png';
 import { HeaderButtons } from './Buttons';
-import { SnapLogo } from './SnapLogo';
 import { Toggle } from './Toggle';
-import LOGO from '../assets/logo.png';
 
 const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 2.4rem;
+  padding: 1.2rem 2.4rem;
   border-bottom: 1px solid ${(props) => props.theme.colors.border.default};
-`;
-
-const Title = styled.p`
-  font-size: ${(props) => props.theme.fontSizes.title};
-  font-weight: bold;
-  margin: 0;
-  margin-left: 1.2rem;
-  ${({ theme }) => theme.mediaQueries.small} {
-    display: none;
-  }
-`;
-
-const LogoWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Logo = styled.img`
-  width: 250px;
 `;
 
 const RightContainer = styled.div`
@@ -43,43 +21,29 @@ const RightContainer = styled.div`
   align-items: center;
 `;
 
+const LogoDiv = styled.img`
+  display: flex;
+  justify-content: center;
+  width: 140px;
+`;
+
 export const Header = ({
   handleToggleClick,
 }: {
   handleToggleClick(): void;
 }) => {
-  const theme = useTheme();
-  const [state, dispatch] = useContext(MetaMaskContext);
+  const [state] = useMetamaskContext();
+  const { connect } = useConnect();
 
-  const handleConnectClick = async () => {
-    try {
-      await connectSnap();
-      // const installedSnap = await getSnap();
-
-      const installedSnap = { id: 'local:localhost:3000' };
-
-      dispatch({
-        type: MetamaskActions.SetInstalled,
-        payload: installedSnap,
-      });
-    } catch (e) {
-      console.error(e);
-      dispatch({ type: MetamaskActions.SetError, payload: e });
-    }
-  };
   return (
     <HeaderWrapper>
-      <LogoWrapper>
-        {/* <SnapLogo color={theme.colors.icon.default} size={36} />
-        <Title>Metablast</Title> */}
-        <Logo src={LOGO}></Logo>
-      </LogoWrapper>
+      <LogoDiv src={LOGO} />
       <RightContainer>
         <Toggle
           onToggle={handleToggleClick}
           defaultChecked={getThemePreference()}
         />
-        <HeaderButtons state={state} onConnectClick={handleConnectClick} />
+        <HeaderButtons state={state} onConnectClick={connect} />
       </RightContainer>
     </HeaderWrapper>
   );
