@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border.snapshot};
   min-width: 650px;
   border-radius: 10px;
-  color: red;
+  color: ${({ theme }) => theme.colors.text.default};
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -45,8 +45,10 @@ const MemberCount = styled.div`
   margin-top: 10px;
   color: ${({ theme }) => theme.colors.text.default};
 `;
-
-const Proposals = () => {
+interface Modal {
+  openIt: () => void;
+}
+const Proposals = ({ openIt }: Modal) => {
   // const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -98,7 +100,7 @@ const Proposals = () => {
   return (
     <Wrapper>
       <ProposalTitle>Proposals</ProposalTitle>
-      <Proposal />
+      <Proposal openIt={openIt} />
     </Wrapper>
   );
 };

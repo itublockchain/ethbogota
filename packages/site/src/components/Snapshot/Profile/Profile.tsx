@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border.snapshot};
   min-width: 250px;
   border-radius: 10px;
-  color: red;
+  color: ${({ theme }) => theme.colors.text.default};
   display: flex;
   flex-direction: column;
   padding: 10px;

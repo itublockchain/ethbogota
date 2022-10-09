@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
+/* eslint-disable */
+import { useCallback, useMemo, useState } from 'react';
 
 export type ModalController = {
   isOpen: boolean;

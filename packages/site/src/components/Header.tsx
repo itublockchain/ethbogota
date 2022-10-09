@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useContext } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
@@ -5,6 +6,7 @@ import { connectSnap, getThemePreference } from '../utils';
 import { HeaderButtons } from './Buttons';
 import { SnapLogo } from './SnapLogo';
 import { Toggle } from './Toggle';
+import LOGO from '../assets/logo.png';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -29,6 +31,10 @@ const LogoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const Logo = styled.img`
+  width: 250px;
 `;
 
 const RightContainer = styled.div`
@@ -64,8 +70,9 @@ export const Header = ({
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <SnapLogo color={theme.colors.icon.default} size={36} />
-        <Title>Metablast</Title>
+        {/* <SnapLogo color={theme.colors.icon.default} size={36} />
+        <Title>Metablast</Title> */}
+        <Logo src={LOGO}></Logo>
       </LogoWrapper>
       <RightContainer>
         <Toggle
