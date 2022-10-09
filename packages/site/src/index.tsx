@@ -1,8 +1,9 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import Metablast from './Metablast';
-
-/* eslint-disable */
 import './styles/index.scss';
 
 const root = ReactDOM.createRoot(
@@ -10,6 +11,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Metablast />
+    <Provider store={store}>
+      {/* <App /> */}
+      <Metablast />
+    </Provider>
   </React.StrictMode>,
 );

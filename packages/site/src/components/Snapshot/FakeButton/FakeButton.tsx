@@ -34,45 +34,45 @@ const FakeButton = () => {
       // headers: headers,
       data: {
         query:
-         `query {
-          space(id: "0xulas.eth") {
+          // query: `query {
+          //   space(id: "0xulas.eth") {
+          //     id
+          //     name
+          //     about
+          //     network
+          //     symbol
+          //     members
+          //   }
+          // }`,
+          `query {
+          proposal(id:"0x4a1aedbd9d22295f358dc4028b5a3f0a602bb5f1089dabdc2b63bf2bcce45834") {
             id
-            name
-            about
+            title
+            body
+            choices
+            start
+            end
+            snapshot
+            state
+            author
+            created
+            scores
+            scores_by_strategy
+            scores_total
+            scores_updated
+            plugins
             network
-            symbol
-            members
+            strategies {
+              name
+              network
+              params
+            }
+            space {
+              id
+              name
+            }
           }
         }`,
-        // `query {
-        //   proposal(id:"0x4a1aedbd9d22295f358dc4028b5a3f0a602bb5f1089dabdc2b63bf2bcce45834") {
-        //     id
-        //     title
-        //     body
-        //     choices
-        //     start
-        //     end
-        //     snapshot
-        //     state
-        //     author
-        //     created
-        //     scores
-        //     scores_by_strategy
-        //     scores_total
-        //     scores_updated
-        //     plugins
-        //     network
-        //     strategies {
-        //       name
-        //       network
-        //       params
-        //     }
-        //     space {
-        //       id
-        //       name
-        //     }
-        //   }
-        // }`
       },
     });
     console.log(response); // data
