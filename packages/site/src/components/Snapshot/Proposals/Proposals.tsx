@@ -8,16 +8,13 @@ import { useEffect } from 'react';
 import { PROPOSALIDS } from '../../../constant/ProposalIDs';
 import { setProposals } from '../../../store/slicers/proposals';
 const Wrapper = styled.div`
-  // min-height: 200px;
-  // height: 300px;
   border: 1px solid ${({ theme }) => theme.colors.border.snapshot};
   min-width: 650px;
-  border-radius: 10px;
+  border-radius: 14px;
   color: ${({ theme }) => theme.colors.text.default};
   display: flex;
   flex-direction: column;
   padding: 20px;
-  // align-items: center;
 `;
 
 const ProposalTitle = styled.div`

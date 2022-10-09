@@ -7,6 +7,7 @@ module.exports = {
       rules: {
         'jsdoc/require-jsdoc': 0,
         '@typescript-eslint/consistent-type-definitions': 'off',
+        'import/extensions': 'off',
       },
     },
   ],

@@ -1,11 +1,9 @@
-// import { useTheme } from 'styled-components';
-// import { ReactComponent as MetaMaskFox } from '../assets/metamask_fox.svg';
-
-/* eslint-disable */
 import styled from 'styled-components';
-import LOGO from '../../../assets/itublockchain-logo.jpeg';
+import LOGO from 'assets/itublockchain-logo.jpeg';
+
 const Wrapper = styled.div`
   height: 500px;
+  margin-right: 12px;
   border: 1px solid ${({ theme }) => theme.colors.border.snapshot};
   min-width: 250px;
   border-radius: 10px;
@@ -37,8 +35,6 @@ const MemberCount = styled.div`
 `;
 
 const Profile = () => {
-  // const theme = useTheme();
-
   return (
     <Wrapper>
       <ITUBCLOGO src={LOGO}></ITUBCLOGO>

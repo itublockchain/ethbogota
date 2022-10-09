@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import LOGO from '../../../assets/itublockchain-logo.jpeg';
 import { useTypedSelector } from '../../../store';
 const Wrapper = styled.div`
-  // min-height: 200px;
-  // height: 300px;
   border: 1px solid ${({ theme }) => theme.colors.border.snapshot};
   min-width: 650px;
   border-radius: 10px;
@@ -15,7 +13,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  // align-items: center;
   cursor: pointer;
 
   &:hover {
@@ -66,8 +63,6 @@ interface Modal {
   openIt: () => void;
 }
 const Proposal = ({ openIt }: Modal) => {
-  // const theme = useTheme();
-
   const proposal1 = useTypedSelector((state) => state.proposals.proposal1);
   return (
     <Wrapper onClick={openIt}>

@@ -1,8 +1,6 @@
-/* eslint-disable */
-// import styles from './Snapshot.module.scss';
 import styled from 'styled-components';
-import { Profile, ProposalModal, Proposals } from '../../components';
-import { useModal } from '../../hooks/useModal';
+import { useModal } from 'hooks';
+import { Profile, ProposalModal, Proposals } from 'components';
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -10,22 +8,25 @@ const Wrapper = styled.div`
 
   color: ${({ theme }) => theme.colors.text.default};
   display: flex;
-  padding-top: 100px;
+  padding-top: 24px;
   justify-content: center;
 `;
 
 const Dashboard = styled.div`
   width: 1000px;
+  border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.background.alternative};
-
   color: ${({ theme }) => theme.colors.text.default};
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 32px;
+
+  ${({ theme }) => theme.mediaQueries.small} {
+    width: 95%;
+  }
 `;
 
 const SnapshotPage = () => {
-  // const theme = useTheme();
   const proposalModal = useModal();
 
   return (
