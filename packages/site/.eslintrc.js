@@ -10,6 +10,7 @@ module.exports = {
         'import/extensions': 'off',
         'no-eq-null': 'off',
         'prefer-template': 'off',
+        'no-case-declarations': 'off',
       },
     },
   ],

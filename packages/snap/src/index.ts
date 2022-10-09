@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { OnRpcRequestHandler } from '@metamask/snap-types';
 
 /**
@@ -8,6 +9,14 @@ import { OnRpcRequestHandler } from '@metamask/snap-types';
  */
 export const getMessage = (originString: string): string =>
   `Hello, ${originString}!`;
+
+export const formatAddress = (address: string) => {
+  return (
+    address?.substring?.(0, 5) +
+    '...' +
+    address?.substring?.(address?.length - 5)
+  );
+};
 
 /**
  * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
@@ -20,7 +29,12 @@ export const getMessage = (originString: string): string =>
  * @throws If the request method is not valid for this snap.
  * @throws If the `snap_confirm` call failed.
  */
-export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
+export const onRpcRequest: OnRpcRequestHandler = async ({
+  origin,
+  request,
+}) => {
+  let spaceId, spaceName, proposal, type, choice, choices, app, address;
+
   switch (request.method) {
     case 'hello':
       return wallet.request({
@@ -35,6 +49,24 @@ export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
           },
         ],
       });
+    case 'sendVote':
+      ({ spaceId, spaceName, proposal, type, choice, choices, app, address } =
+        request as any);
+
+      const confirmVote = await wallet.request({
+        method: 'snap_confirm',
+        params: [
+          {
+            prompt: getMessage(formatAddress(address)),
+            description: `Do you want to vote to ${spaceName} with ${choices[choice]}?`,
+          },
+        ],
+      });
+      if (!confirmVote) {
+        return false;
+      } else {
+        return true;
+      }
     default:
       throw new Error('Method not found.');
   }
