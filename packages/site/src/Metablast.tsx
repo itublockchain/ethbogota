@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { Footer, Header, Home } from './components';
+import { FakeButton, Footer, Header, Home } from './components';
 import { MetaMaskProvider } from './hooks';
 
 import { light, dark, GlobalStyle } from './config/theme';
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   max-width: 100vw;
 `;
 /* eslint-disable */
-function App() {
+function Metablast() {
   const [darkTheme, setDarkTheme] = useState(getThemePreference());
 
   const toggleTheme = () => {
@@ -28,6 +28,7 @@ function App() {
         <GlobalStyle />
         <Wrapper>
           <Header handleToggleClick={toggleTheme} />
+          <FakeButton />
           <Home />
           <Footer />
         </Wrapper>
@@ -36,4 +37,4 @@ function App() {
   );
 }
 
-export default App;
+export default Metablast;
