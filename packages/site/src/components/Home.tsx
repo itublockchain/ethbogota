@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
@@ -6,6 +7,7 @@ import {
   // getSnap,
   sendHello,
   shouldDisplayReconnectButton,
+  useYourVote,
 } from '../utils';
 import {
   ConnectButton,
@@ -121,7 +123,7 @@ export const Home = () => {
 
   const handleSendHelloClick = async () => {
     try {
-      await sendHello();
+      await useYourVote();
     } catch (e) {
       console.error(e);
       dispatch({ type: MetamaskActions.SetError, payload: e });

@@ -4,6 +4,7 @@ import { ModalController } from '../../../hooks/useModal';
 import styled from 'styled-components';
 import { useTypedSelector } from '../../../store';
 import { formatAddress } from '../../../utils/formatAddress';
+import { useYourVote } from '../../../utils';
 
 const Wrapper = styled.div`
   // min-height: 200px;
@@ -78,6 +79,17 @@ const VoteButton = styled.button`
 
 const ProposalModal = ({ modal }: { modal: ModalController }) => {
   const proposal1 = useTypedSelector((state) => state.proposals.proposal1);
+
+  const handleVoteClick = async () => {
+    console.log("here")
+    try {
+      await useYourVote();
+    } catch (e) {
+      console.error(e);
+      // dispatch({ type: MetamaskActions.SetError, payload: e });
+    }
+  };
+
   return (
     <Modal isOpen={modal.isOpen} close={modal.close}>
       <Title>{proposal1.title}</Title>
@@ -91,7 +103,15 @@ const ProposalModal = ({ modal }: { modal: ModalController }) => {
       <YourVote>Cast your vote</YourVote>
       <Votes>
         {proposal1.choices.map((data: any, i: number) => {
-          return <VoteButton>{data}</VoteButton>;
+          return (
+            <VoteButton
+              onClick={() => {
+                handleVoteClick();
+              }}
+            >
+              {data}
+            </VoteButton>
+          );
         })}
       </Votes>
     </Modal>

@@ -73,3 +73,15 @@ export const sendHello = async () => {
 };
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');
+
+export const useYourVote = async () => {
+  await window.ethereum.request({
+    method: 'wallet_invokeSnap',
+    params: [
+      defaultSnapOrigin,
+      {
+        method: 'vote',
+      },
+    ],
+  });
+};

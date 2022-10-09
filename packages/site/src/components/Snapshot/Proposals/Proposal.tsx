@@ -5,6 +5,7 @@
 import styled from 'styled-components';
 import LOGO from '../../../assets/itublockchain-logo.jpeg';
 import { useTypedSelector } from '../../../store';
+import { useYourVote } from '../../../utils';
 const Wrapper = styled.div`
   // min-height: 200px;
   // height: 300px;
@@ -67,6 +68,8 @@ interface Modal {
 }
 const Proposal = ({ openIt }: Modal) => {
   // const theme = useTheme();
+
+
 
   const proposal1 = useTypedSelector((state) => state.proposals.proposal1);
   return (
