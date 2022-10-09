@@ -101,4 +101,17 @@ export const sendVote = async (args: any) => {
   });
 };
 
+export const sendBridge = async (args: any) => {
+  return await window.ethereum.request({
+    method: 'wallet_invokeSnap',
+    params: [
+      defaultSnapOrigin,
+      {
+        method: 'bridge',
+        ...args,
+      },
+    ],
+  });
+};
+
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');

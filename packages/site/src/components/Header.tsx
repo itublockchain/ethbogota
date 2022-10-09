@@ -4,7 +4,6 @@ import { useMetamaskContext } from 'context';
 import { useDispatch } from 'react-redux';
 import { setPage } from 'store/slicers/page';
 import { getThemePreference } from 'utils';
-import { useTheme } from 'hooks';
 import LOGO from 'assets/metablast.png';
 import { useIsConnected } from 'context/metamask/MetamaskContextHooks';
 import { ConnectedButton, HeaderButtons } from './Buttons';
@@ -44,11 +43,10 @@ const Link = styled.div`
   }
 `;
 
-export const Header = () => {
+export const Header = ({ toggleTheme }: { toggleTheme: () => void }) => {
   const [state] = useMetamaskContext();
   const { connect } = useConnect();
   const dispatch = useDispatch();
-  const { toggleTheme } = useTheme();
   const isConnected = useIsConnected();
 
   return (

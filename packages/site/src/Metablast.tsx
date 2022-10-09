@@ -5,7 +5,7 @@ import { MetaMaskProvider } from 'context';
 import { useTypedSelector } from 'store';
 import { Footer, Header } from './components';
 import { light, dark, GlobalStyle } from './config/theme';
-import { SnapshotPage } from './pages';
+import { SnapshotPage, BridgePage } from './pages';
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 `;
 
 function Metablast() {
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   useStyling();
   const { page } = useTypedSelector((state) => state.page);
 
@@ -25,8 +25,8 @@ function Metablast() {
       <MetaMaskProvider>
         <GlobalStyle />
         <Wrapper>
-          <Header />
-          {page === 'bridge' ? null : <SnapshotPage />}
+          <Header toggleTheme={toggleTheme} />
+          {page === 'bridge' ? <BridgePage /> : <SnapshotPage />}
           <Footer />
         </Wrapper>
       </MetaMaskProvider>

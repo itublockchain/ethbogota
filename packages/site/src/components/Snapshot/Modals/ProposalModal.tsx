@@ -5,7 +5,7 @@ import { useTypedSelector } from 'store';
 import { formatAddress } from 'utils/formatAddress';
 import { sendVote } from 'utils';
 import snapshot from '@snapshot-labs/snapshot.js';
-import { PRODUCTIONSNAPSHOT } from 'constant/URLs';
+import { SNAPSHOTJS } from 'constant/URLs';
 import { Web3Provider } from '@ethersproject/providers';
 import { useAddress } from 'context/metamask/MetamaskContextHooks';
 
@@ -63,10 +63,7 @@ const VoteButton = styled.button`
 `;
 
 const web3 = new Web3Provider(window.ethereum as any);
-const client = new snapshot.Client712(PRODUCTIONSNAPSHOT);
-
-console.log(web3);
-console.log(client);
+const client = new snapshot.Client712(SNAPSHOTJS);
 
 const ProposalModal = ({ modal }: { modal: ModalController }) => {
   const proposal = useTypedSelector((state) => state.proposals.proposal1);
@@ -77,7 +74,6 @@ const ProposalModal = ({ modal }: { modal: ModalController }) => {
   }
 
   const vote = async (choiceIndex: number) => {
-    console.log(choiceIndex);
     const payload = {
       address,
       spaceId: proposal.space.id,
@@ -86,8 +82,8 @@ const ProposalModal = ({ modal }: { modal: ModalController }) => {
       proposal: proposal.id,
       type: 'single-choice',
       choice: choiceIndex,
-      reason: 'test',
-      app: 'eth-bogoto-itublockchain',
+      reason: '',
+      app: 'snapshot',
     };
 
     try {
@@ -100,19 +96,22 @@ const ProposalModal = ({ modal }: { modal: ModalController }) => {
             space: payload.spaceId,
             proposal: payload.proposal,
             type: payload.type as any,
-            choice: payload.choice,
+            choice: payload.choice + 1,
             reason: payload.reason,
             app: payload.app,
           });
-          // eslint-disable-next-line
-          alert('Voted successfully');
+
+          console.log(payload);
+
           console.log(receipt);
         } catch (err) {
           console.log(err);
+          console.log(payload);
         }
       }
-
-      console.log();
+      // eslint-disable-next-line
+      alert('Voted successfully');
+      modal.close();
     } catch (err) {
       console.error(err);
     }

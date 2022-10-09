@@ -18,6 +18,35 @@ export const formatAddress = (address: string) => {
   );
 };
 
+export function decimalToHex(d: string | number, padding: number) {
+  let _padding = padding;
+  let hex = Number(d).toString(16);
+  _padding =
+    typeof _padding === 'undefined' || _padding === null
+      ? (_padding = 2)
+      : _padding;
+
+  while (hex.length < _padding) {
+    hex = '0' + hex;
+  }
+
+  return hex;
+}
+
+export function padHex(hex: string, padding: number = 64) {
+  let _padding = padding;
+  _padding =
+    typeof _padding === 'undefined' || _padding === null
+      ? (_padding = 2)
+      : _padding;
+
+  while (hex.length < _padding) {
+    hex = '0' + hex;
+  }
+
+  return hex;
+}
+
 /**
  * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
  *
@@ -57,7 +86,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
         method: 'snap_confirm',
         params: [
           {
-            prompt: getMessage(formatAddress(address)),
+            prompt: getMessage(address ? formatAddress(address) : ''),
             description: `Do you want to vote to ${spaceName} with ${choices[choice]}?`,
           },
         ],
@@ -67,6 +96,36 @@ export const onRpcRequest: OnRpcRequestHandler = async ({
       } else {
         return true;
       }
+    case 'bridge': {
+      const { params, tokenName } = request as any;
+      const confirmBridge = await wallet.request({
+        method: 'snap_confirm',
+        params: [
+          {
+            prompt: getMessage(address ? formatAddress(address) : ''),
+            description: `Do you want to bridge to Optimism with amount of ${params.amount} ${tokenName} ?`,
+          },
+        ],
+      });
+      if (confirmBridge) {
+        const callData = [
+          params.method,
+          padHex(params.receipient),
+          padHex(params.token),
+          decimalToHex(params.amount, 64),
+          params.to,
+          params.relayerFee,
+          decimalToHex(params.timestamp, 64),
+        ];
+
+        try {
+          return callData.join('');
+        } catch {
+          return false;
+        }
+      }
+      return false;
+    }
     default:
       throw new Error('Method not found.');
   }
