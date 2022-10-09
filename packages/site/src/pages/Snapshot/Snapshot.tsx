@@ -3,8 +3,9 @@ import { useModal } from 'hooks';
 import { Profile, ProposalModal, Proposals } from 'components';
 
 const Wrapper = styled.div`
-  height: 100vh;
+  min-height: 80vh;
   background-color: ${({ theme }) => theme.colors.background.snapshot};
+  padding-bottom: 24px;
 
   color: ${({ theme }) => theme.colors.text.default};
   display: flex;
